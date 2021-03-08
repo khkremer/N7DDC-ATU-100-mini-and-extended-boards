@@ -35,7 +35,7 @@ void main() {
    if(RCON.B3==0) Restart = 1;
    pic_init();
    //
-   Delay_ms (100);
+   Delay_ms (300);
    asm CLRWDT;
    cells_init();
    Soft_I2C_Init();
@@ -48,16 +48,20 @@ void main() {
    High = 0;
    dysp_cnt = Dysp_delay * dysp_cnt_mult;
    //
-   Delay_ms(200);
+   Delay_ms(300);
    asm CLRWDT;
    if(PORTB.B4==0 & PORTB.B5==0)   {    // Test mode
       Test = 1;
       Auto = 0;
    }
+   
+   Delay_ms(300);
+   asm CLRWDT;
+   
    led_init();
    if(PORTB.B4==0 & PORTB.B5==0 & PORTB.B0==0)  { // Fast Test mode (loop)
-      if(type==1) led_wr_str (0, 3, "FAST TEST", 9); // 1602
-      else if(type!=0) led_wr_str (0, 12, "FAST TEST", 9); // 128*64 | 128*32
+      if(type==4 | type==5) led_wr_str (0, 3, "FAST TEST", 9); // 1602 | 128*32
+      else if(type!=0) led_wr_str (0, 12, "FAST TEST", 9); // 128*64
       set_cap(255);
       set_ind(255);
       set_sw(1);
